@@ -16,6 +16,7 @@ import { Route as ProtectedImport } from './routes/_protected'
 import { Route as IndexImport } from './routes/index'
 import { Route as PublicLoginImport } from './routes/_public/login'
 import { Route as PublicAboutImport } from './routes/_public/about'
+import { Route as ProtectedProfileImport } from './routes/_protected/profile'
 import { Route as ProtectedDashboardImport } from './routes/_protected/dashboard'
 
 // Create/Update Routes
@@ -45,6 +46,11 @@ const PublicAboutRoute = PublicAboutImport.update({
   getParentRoute: () => PublicRoute,
 } as any)
 
+const ProtectedProfileRoute = ProtectedProfileImport.update({
+  path: '/profile',
+  getParentRoute: () => ProtectedRoute,
+} as any)
+
 const ProtectedDashboardRoute = ProtectedDashboardImport.update({
   path: '/dashboard',
   getParentRoute: () => ProtectedRoute,
@@ -70,6 +76,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProtectedDashboardImport
       parentRoute: typeof ProtectedImport
     }
+    '/_protected/profile': {
+      preLoaderRoute: typeof ProtectedProfileImport
+      parentRoute: typeof ProtectedImport
+    }
     '/_public/about': {
       preLoaderRoute: typeof PublicAboutImport
       parentRoute: typeof PublicImport
@@ -85,7 +95,7 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren([
   IndexRoute,
-  ProtectedRoute.addChildren([ProtectedDashboardRoute]),
+  ProtectedRoute.addChildren([ProtectedDashboardRoute, ProtectedProfileRoute]),
   PublicRoute.addChildren([PublicAboutRoute, PublicLoginRoute]),
 ])
 

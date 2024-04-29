@@ -16,7 +16,10 @@ export const Nav = () => {
   return (
     <nav className="flex items-center justify-end gap-12 p-4">
       {isLoggedIn ?
-        <Link to="/dashboard">Dashboard</Link>
+        <>
+          <Link to="/dashboard">Dashboard</Link>
+          <Link to="/profile">Profile</Link>
+        </>
       : <Link to="/">Login</Link>}
       <Link to="/about">About</Link>
       {isLoggedIn && (

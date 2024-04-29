@@ -1,12 +1,14 @@
 import { useNavigate } from '@tanstack/react-router';
 import { Input } from '../components/Input';
 import { useZodForm } from '../hooks/use-zod-form';
+import { Route } from '../routes/_public/login';
 import { loginUserSchema } from '../services/auth/auth.schemas';
 import { useAuthService } from '../services/auth/auth.service';
 import type { LoginUser } from '../services/auth/auth.types';
 
 export const Login = () => {
   const navigate = useNavigate({ from: '/login' });
+  const { redirect } = Route.useSearch();
   const {
     login,
     auth: { isLoggedIn },
@@ -19,7 +21,9 @@ export const Login = () => {
 
   const onSubmit = async (data: LoginUser) => {
     await login(data);
-    await navigate({ to: '/dashboard' });
+    await navigate({
+      to: redirect ?? '/dashboard',
+    });
   };
 
   return (
