@@ -31,15 +31,17 @@ export const Input = <T extends FieldValues>({
 
   return (
     <div className="flex w-full flex-col gap-2">
-      <label htmlFor={id} className="flex justify-between">
+      <label htmlFor={id} className="flex items-baseline justify-between">
         <span>{label}</span>
-        {errorMessage && <span>{errorMessage}</span>}
+        {errorMessage && (
+          <span className="text-base leading-none">{errorMessage}</span>
+        )}
       </label>
       <div>
         <input
           key={id}
           {...inputAttributes}
-          className="w-full border border-black px-2 py-1"
+          className="ring-primary w-full rounded-none border-8 border-black px-2 py-1 focus:outline-none focus:ring"
         />
       </div>
     </div>

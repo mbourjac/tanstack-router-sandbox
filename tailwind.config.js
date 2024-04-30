@@ -9,7 +9,7 @@ export default {
       },
       colors: {
         'off-black': '#1d1d1d',
-        'off-white': '#fffcf7',
+        primary: '#ffff00',
       },
     },
   },

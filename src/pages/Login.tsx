@@ -43,7 +43,7 @@ export const Login = () => {
               {...inputProps}
             />
             <button
-              className="w-fit bg-black px-4 py-2 text-xl font-bold text-white disabled:bg-slate-400"
+              className="w-fit bg-black px-4 py-2 text-xl text-white disabled:bg-slate-400"
               disabled={isSubmitting}
             >
               Submit
