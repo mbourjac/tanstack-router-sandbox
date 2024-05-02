@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
-import type { AllRoutes } from '../../lib/tanstack-router';
-import { Login } from '../../pages/Login';
+import { Login } from '../../../pages/Login';
+import type { AllRoutes } from '../../router.types';
 
 export type LoginParams = {
   redirect?: AllRoutes;

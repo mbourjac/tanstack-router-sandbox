@@ -1,7 +1,7 @@
 import { useNavigate } from '@tanstack/react-router';
 import { Input } from '../components/Input';
 import { useZodForm } from '../hooks/use-zod-form';
-import { Route } from '../routes/_public/login';
+import { Route } from '../router/routes/_public/login';
 import { loginUserSchema } from '../services/auth/auth.schemas';
 import { useAuthService } from '../services/auth/auth.service';
 import type { LoginUser } from '../services/auth/auth.types';

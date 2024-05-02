@@ -18,6 +18,8 @@ import { Route as PublicLoginImport } from './routes/_public/login'
 import { Route as PublicAboutImport } from './routes/_public/about'
 import { Route as ProtectedProfileImport } from './routes/_protected/profile'
 import { Route as ProtectedDashboardImport } from './routes/_protected/dashboard'
+import { Route as ProtectedDashboardIndexImport } from './routes/_protected/dashboard/index'
+import { Route as ProtectedDashboardNotificationsImport } from './routes/_protected/dashboard/notifications'
 
 // Create/Update Routes
 
@@ -56,6 +58,17 @@ const ProtectedDashboardRoute = ProtectedDashboardImport.update({
   getParentRoute: () => ProtectedRoute,
 } as any)
 
+const ProtectedDashboardIndexRoute = ProtectedDashboardIndexImport.update({
+  path: '/',
+  getParentRoute: () => ProtectedDashboardRoute,
+} as any)
+
+const ProtectedDashboardNotificationsRoute =
+  ProtectedDashboardNotificationsImport.update({
+    path: '/notifications',
+    getParentRoute: () => ProtectedDashboardRoute,
+  } as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -88,6 +101,14 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicLoginImport
       parentRoute: typeof PublicImport
     }
+    '/_protected/dashboard/notifications': {
+      preLoaderRoute: typeof ProtectedDashboardNotificationsImport
+      parentRoute: typeof ProtectedDashboardImport
+    }
+    '/_protected/dashboard/': {
+      preLoaderRoute: typeof ProtectedDashboardIndexImport
+      parentRoute: typeof ProtectedDashboardImport
+    }
   }
 }
 
@@ -95,7 +116,13 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren([
   IndexRoute,
-  ProtectedRoute.addChildren([ProtectedDashboardRoute, ProtectedProfileRoute]),
+  ProtectedRoute.addChildren([
+    ProtectedDashboardRoute.addChildren([
+      ProtectedDashboardNotificationsRoute,
+      ProtectedDashboardIndexRoute,
+    ]),
+    ProtectedProfileRoute,
+  ]),
   PublicRoute.addChildren([PublicAboutRoute, PublicLoginRoute]),
 ])
 
