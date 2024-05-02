@@ -21,9 +21,16 @@ export const Login = () => {
 
   const onSubmit = async (data: LoginUser) => {
     await login(data);
-    await navigate({
-      to: redirect ?? '/dashboard',
-    });
+
+    if (!redirect || redirect === '/dashboard') {
+      await navigate({
+        to: '/dashboard/news',
+      });
+    } else {
+      await navigate({
+        to: redirect,
+      });
+    }
   };
 
   return (

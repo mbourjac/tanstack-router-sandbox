@@ -19,7 +19,7 @@ import { Route as PublicAboutImport } from './routes/_public/about'
 import { Route as ProtectedProfileImport } from './routes/_protected/profile'
 import { Route as ProtectedDashboardImport } from './routes/_protected/dashboard'
 import { Route as ProtectedDashboardIndexImport } from './routes/_protected/dashboard/index'
-import { Route as ProtectedDashboardNotificationsImport } from './routes/_protected/dashboard/notifications'
+import { Route as ProtectedDashboardNewsImport } from './routes/_protected/dashboard/news'
 
 // Create/Update Routes
 
@@ -63,11 +63,10 @@ const ProtectedDashboardIndexRoute = ProtectedDashboardIndexImport.update({
   getParentRoute: () => ProtectedDashboardRoute,
 } as any)
 
-const ProtectedDashboardNotificationsRoute =
-  ProtectedDashboardNotificationsImport.update({
-    path: '/notifications',
-    getParentRoute: () => ProtectedDashboardRoute,
-  } as any)
+const ProtectedDashboardNewsRoute = ProtectedDashboardNewsImport.update({
+  path: '/news',
+  getParentRoute: () => ProtectedDashboardRoute,
+} as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -101,8 +100,8 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicLoginImport
       parentRoute: typeof PublicImport
     }
-    '/_protected/dashboard/notifications': {
-      preLoaderRoute: typeof ProtectedDashboardNotificationsImport
+    '/_protected/dashboard/news': {
+      preLoaderRoute: typeof ProtectedDashboardNewsImport
       parentRoute: typeof ProtectedDashboardImport
     }
     '/_protected/dashboard/': {
@@ -118,7 +117,7 @@ export const routeTree = rootRoute.addChildren([
   IndexRoute,
   ProtectedRoute.addChildren([
     ProtectedDashboardRoute.addChildren([
-      ProtectedDashboardNotificationsRoute,
+      ProtectedDashboardNewsRoute,
       ProtectedDashboardIndexRoute,
     ]),
     ProtectedProfileRoute,
