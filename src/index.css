@@ -9,3 +9,9 @@
     @apply font-body;
   }
 }
+
+@layer components {
+  .border-main {
+    @apply border-8 border-black;
+  }
+}

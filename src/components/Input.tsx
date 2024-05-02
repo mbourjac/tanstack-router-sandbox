@@ -41,7 +41,7 @@ export const Input = <T extends FieldValues>({
         <input
           key={id}
           {...inputAttributes}
-          className="ring-primary w-full rounded-none border-8 border-black px-2 py-1 focus:outline-none focus:ring"
+          className="border-main w-full rounded-none px-2 py-1 ring-primary focus:outline-none focus:ring"
         />
       </div>
     </div>
