@@ -1,9 +1,9 @@
 import { RouterProvider } from '@tanstack/react-router';
-import { useAuthService } from '../services/auth/auth.service';
+import { useAuthStore } from '../services/auth/auth.store';
 import { router } from './router.instance';
 
 export const Router = () => {
-  const { auth } = useAuthService();
+  const auth = useAuthStore((state) => state.auth);
 
   return <RouterProvider router={router} context={{ auth }} />;
 };

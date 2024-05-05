@@ -1,18 +1,19 @@
+import { useEffect } from 'react';
 import { useNavigate } from '@tanstack/react-router';
 import { Input } from '../components/Input';
 import { useZodForm } from '../hooks/use-zod-form';
-import { Route } from '../router/routes/_public/login';
+import { Route } from '../routes/_public/login';
 import { loginUserSchema } from '../services/auth/auth.schemas';
-import { useAuthService } from '../services/auth/auth.service';
+import { useAuthStore } from '../services/auth/auth.store';
 import type { LoginUser } from '../services/auth/auth.types';
 
 export const Login = () => {
   const navigate = useNavigate({ from: '/login' });
   const { redirect } = Route.useSearch();
-  const {
-    login,
-    auth: { isLoggedIn },
-  } = useAuthService();
+
+  const { isLoggedIn } = useAuthStore((state) => state.auth);
+  const login = useAuthStore((state) => state.login);
+
   const {
     handleSubmit,
     inputProps,
@@ -21,42 +22,47 @@ export const Login = () => {
 
   const onSubmit = async (data: LoginUser) => {
     await login(data);
-
-    if (!redirect || redirect === '/dashboard') {
-      await navigate({
-        to: '/dashboard/news',
-      });
-    } else {
-      await navigate({
-        to: redirect,
-      });
-    }
   };
+
+  useEffect(() => {
+    if (!isLoggedIn) return;
+
+    const redirectUser = async () => {
+      if (!redirect || redirect === '/dashboard') {
+        await navigate({
+          to: '/dashboard/news',
+        });
+      } else {
+        await navigate({
+          to: redirect,
+        });
+      }
+    };
+
+    void redirectUser();
+  }, [isLoggedIn, navigate, redirect]);
 
   return (
     <div className="flex w-full items-center justify-center">
       <div className="flex w-[min(30rem,100%)] gap-8">
-        {isLoggedIn ?
-          <p className="w-full text-center">You&apos;re already logged in.</p>
-        : <form
-            onSubmit={(event) => void handleSubmit(onSubmit)(event)}
-            className="flex w-full flex-col items-center gap-8"
+        <form
+          onSubmit={(event) => void handleSubmit(onSubmit)(event)}
+          className="flex w-full flex-col items-center gap-8"
+        >
+          <Input id="email" label="Email*" {...inputProps} />
+          <Input
+            type="password"
+            id="password"
+            label="Password"
+            {...inputProps}
+          />
+          <button
+            className="w-fit bg-black px-4 py-2 text-xl text-white disabled:bg-slate-400"
+            disabled={isSubmitting}
           >
-            <Input id="email" label="Email*" {...inputProps} />
-            <Input
-              type="password"
-              id="password"
-              label="Password"
-              {...inputProps}
-            />
-            <button
-              className="w-fit bg-black px-4 py-2 text-xl text-white disabled:bg-slate-400"
-              disabled={isSubmitting}
-            >
-              Submit
-            </button>
-          </form>
-        }
+            Submit
+          </button>
+        </form>
       </div>
     </div>
   );

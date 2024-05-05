@@ -10,16 +10,16 @@
 
 // Import Routes
 
-import { Route as rootRoute } from './routes/__root'
-import { Route as PublicImport } from './routes/_public'
-import { Route as ProtectedImport } from './routes/_protected'
-import { Route as IndexImport } from './routes/index'
-import { Route as PublicLoginImport } from './routes/_public/login'
-import { Route as PublicAboutImport } from './routes/_public/about'
-import { Route as ProtectedProfileImport } from './routes/_protected/profile'
-import { Route as ProtectedDashboardImport } from './routes/_protected/dashboard'
-import { Route as ProtectedDashboardIndexImport } from './routes/_protected/dashboard/index'
-import { Route as ProtectedDashboardNewsImport } from './routes/_protected/dashboard/news'
+import { Route as rootRoute } from './../routes/__root'
+import { Route as PublicImport } from './../routes/_public'
+import { Route as ProtectedImport } from './../routes/_protected'
+import { Route as IndexImport } from './../routes/index'
+import { Route as PublicLoginImport } from './../routes/_public/login'
+import { Route as PublicAboutImport } from './../routes/_public/about'
+import { Route as ProtectedProfileImport } from './../routes/_protected/profile'
+import { Route as ProtectedDashboardImport } from './../routes/_protected/dashboard'
+import { Route as ProtectedDashboardIndexImport } from './../routes/_protected/dashboard/index'
+import { Route as ProtectedDashboardNewsImport } from './../routes/_protected/dashboard/news'
 
 // Create/Update Routes
 

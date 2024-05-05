@@ -1,12 +1,10 @@
 import { Link, useNavigate } from '@tanstack/react-router';
-import { useAuthService } from '../services/auth/auth.service';
+import { useAuthStore } from '../services/auth/auth.store';
 
 export const Nav = () => {
   const navigate = useNavigate();
-  const {
-    auth: { isLoggedIn },
-    logout,
-  } = useAuthService();
+  const { isLoggedIn } = useAuthStore((state) => state.auth);
+  const logout = useAuthStore((state) => state.logout);
 
   const handleLogout = async () => {
     logout();

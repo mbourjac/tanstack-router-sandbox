@@ -1,10 +1,8 @@
 import { Navigate } from '@tanstack/react-router';
-import { useAuthService } from '../services/auth/auth.service';
+import { useAuthStore } from '../services/auth/auth.store';
 
 export const Home = () => {
-  const {
-    auth: { isLoggedIn },
-  } = useAuthService();
+  const { isLoggedIn } = useAuthStore((state) => state.auth);
 
   return <Navigate to={isLoggedIn ? '/dashboard' : '/login'} />;
 };
