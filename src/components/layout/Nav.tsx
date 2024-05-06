@@ -1,5 +1,5 @@
 import { Link, useNavigate } from '@tanstack/react-router';
-import { useAuthStore } from '../services/auth/auth.store';
+import { useAuthStore } from '../../services/auth/auth.store';
 
 export const Nav = () => {
   const navigate = useNavigate();

@@ -1,5 +1,5 @@
 import type { FieldValues } from 'react-hook-form';
-import { type FieldBaseProps, useFormField } from '../hooks/use-form-field';
+import { type FieldBaseProps, useFormField } from '../../hooks/use-form-field';
 
 export type InputProps<T extends FieldValues> = FieldBaseProps<T> & {
   label: string;

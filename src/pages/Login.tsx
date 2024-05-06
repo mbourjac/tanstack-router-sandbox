@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate } from '@tanstack/react-router';
-import { Input } from '../components/Input';
+import { Input } from '../components/form/Input';
 import { useZodForm } from '../hooks/use-zod-form';
 import { Route } from '../routes/_public/login';
 import { loginUserSchema } from '../services/auth/auth.schemas';

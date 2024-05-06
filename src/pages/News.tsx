@@ -1,5 +1,5 @@
 import { Link } from '@tanstack/react-router';
-import { CloseIcon } from '../components/Icons/CloseIcon';
+import { CloseIcon } from '../components/icons/CloseIcon';
 
 export const News = () => {
   return (
