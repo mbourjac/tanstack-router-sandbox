@@ -1,33 +1,13 @@
-import type { InputHTMLAttributes } from 'react';
-import type {
-  FieldErrors,
-  Path,
-  FieldValues,
-  UseFormRegister,
-} from 'react-hook-form';
+import type { FieldValues } from 'react-hook-form';
+import { type FieldBaseProps, useFormField } from '../hooks/use-form-field';
 
-export type InputProps<T extends FieldValues> = {
-  id: Path<T>;
-  type?: InputHTMLAttributes<HTMLInputElement>['type'];
+export type InputProps<T extends FieldValues> = FieldBaseProps<T> & {
   label: string;
-  errors: FieldErrors<T>;
-  register: UseFormRegister<T>;
 };
 
-export const Input = <T extends FieldValues>({
-  id,
-  type,
-  label,
-  errors,
-  register,
-}: InputProps<T>) => {
-  const inputAttributes = {
-    id,
-    type,
-    ...register(id),
-  };
-
-  const errorMessage = errors[id]?.message?.toString();
+export const Input = <T extends FieldValues>(props: InputProps<T>) => {
+  const { attributes, errorMessage } = useFormField(props);
+  const { id, label } = props;
 
   return (
     <div className="flex w-full flex-col gap-2">
@@ -39,8 +19,7 @@ export const Input = <T extends FieldValues>({
       </label>
       <div>
         <input
-          key={id}
-          {...inputAttributes}
+          {...attributes}
           className="border-main w-full rounded-none px-2 py-1 ring-primary focus:outline-none focus:ring"
         />
       </div>
