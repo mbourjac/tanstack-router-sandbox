@@ -1,5 +1,5 @@
 import { Link, Outlet } from '@tanstack/react-router';
-import { Nav } from '../components/layout/Nav';
+import { Nav } from '../components/layout/Nav/Nav';
 
 export const AppLayout = () => {
   return (
