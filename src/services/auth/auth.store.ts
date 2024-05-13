@@ -1,5 +1,7 @@
+import toast from 'react-hot-toast';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { getErrorMessage } from '../../helpers/errors';
 import { baseAPI } from '../../lib/axios.instance';
 import { loginRequest } from './auth.api';
 import type { Auth, LoginUser } from './auth.types';
@@ -24,8 +26,12 @@ export const useAuthStore = create<AuthStore>()(
         auth: get()?.auth ?? loggedOutState,
 
         login: async (loginData) => {
-          const authData = await loginRequest(loginData);
-          set({ auth: { isLoggedIn: true, ...authData } });
+          try {
+            const authData = await loginRequest(loginData);
+            set({ auth: { isLoggedIn: true, ...authData } });
+          } catch (error) {
+            toast(getErrorMessage(error));
+          }
         },
 
         logout: () => {

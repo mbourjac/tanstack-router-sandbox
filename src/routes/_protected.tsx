@@ -1,11 +1,13 @@
 import { queryOptions } from '@tanstack/react-query';
 import { createFileRoute, redirect } from '@tanstack/react-router';
+import { ProtectedError } from '../components/app/ProtectedError';
 import { ProtectedLayout } from '../layouts/ProtectedLayout';
 import type { AllRoutes } from '../router/router.types';
 
 export const Route = createFileRoute('/_protected')({
   component: ProtectedLayout,
   pendingComponent: () => <div>Loading...</div>,
+  errorComponent: ProtectedError,
 
   beforeLoad: ({
     context: {
