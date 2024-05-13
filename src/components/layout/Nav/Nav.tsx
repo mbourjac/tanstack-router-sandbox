@@ -13,7 +13,7 @@ export const Nav = () => {
   };
 
   return (
-    <nav className="flex items-center gap-12">
+    <nav className="flex items-center gap-12" aria-label="Main menu">
       {isLoggedIn && (
         <>
           <NavLink to="/dashboard">Dashboard</NavLink>
