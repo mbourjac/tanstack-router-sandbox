@@ -1,10 +1,11 @@
 import { useNavigate } from '@tanstack/react-router';
 import { useAuthStore } from '../../../services/auth/auth.store';
+import { Bulleted } from '../../ui/Bulleted';
 import { NavLink } from './NavLink';
 
 export const Nav = () => {
-  const navigate = useNavigate();
   const { isLoggedIn } = useAuthStore((state) => state.auth);
+  const navigate = useNavigate();
   const logout = useAuthStore((state) => state.logout);
 
   const handleLogout = async () => {
@@ -21,14 +22,13 @@ export const Nav = () => {
         </>
       )}
       <NavLink to="/about">About</NavLink>
-      {isLoggedIn ?
-        <button
-          className="bg-black px-4 py-2 text-white hover:text-primary"
-          onClick={() => void handleLogout()}
-        >
-          Log out
-        </button>
-      : <NavLink to="/login">Login</NavLink>}
+      <div>
+        {isLoggedIn ?
+          <button onClick={() => void handleLogout()}>
+            <Bulleted>Logout</Bulleted>
+          </button>
+        : <NavLink to="/login">Login</NavLink>}
+      </div>
     </nav>
   );
 };
