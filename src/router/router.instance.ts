@@ -1,7 +1,7 @@
 import { createRouter } from '@tanstack/react-router';
 import { routeTree } from './routeTree.gen';
 import { routerContext } from './router.context';
-import { routeMasks } from './router.masking';
+import { routeMasks } from './router.masks';
 
 export const router = createRouter({
   routeTree,
