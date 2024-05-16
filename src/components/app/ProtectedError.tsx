@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import toast from 'react-hot-toast';
 import { useRouterState, Navigate } from '@tanstack/react-router';
+import toast from 'react-hot-toast';
 import { getErrorMessage } from '../../helpers/errors';
 import type { AllRoutes } from '../../router/router.types';
 import { useAuthStore } from '../../services/auth/auth.store';

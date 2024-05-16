@@ -1,6 +1,6 @@
 import { createRouteMask } from '@tanstack/react-router';
-import { routeTree } from './routeTree.gen';
 import type { AllRoutes } from './router.types';
+import { routeTree } from './routeTree.gen';
 
 type CreateRouteMasks = {
   routeTree: typeof routeTree;

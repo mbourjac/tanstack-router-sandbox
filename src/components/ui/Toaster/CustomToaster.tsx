@@ -1,5 +1,5 @@
-import { useToaster } from 'react-hot-toast';
 import { AnimatePresence } from 'framer-motion';
+import { useToaster } from 'react-hot-toast';
 import { CustomToast } from './CustomToast';
 
 export const CustomToaster = () => {

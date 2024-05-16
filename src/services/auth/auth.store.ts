@@ -14,7 +14,7 @@ type AuthStore = {
 
 export const useAuthStore = create<AuthStore>()(
   persist(
-    (set, get) => {
+    (set) => {
       const loggedOutState = {
         isLoggedIn: false as const,
         userId: null,
@@ -23,7 +23,7 @@ export const useAuthStore = create<AuthStore>()(
       };
 
       return {
-        auth: get()?.auth ?? loggedOutState,
+        auth: loggedOutState,
 
         login: async (loginData) => {
           try {

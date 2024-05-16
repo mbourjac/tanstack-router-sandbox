@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
+import { motion } from 'framer-motion';
 import type { Toast, useToaster } from 'react-hot-toast';
 import { toast as baseToast } from 'react-hot-toast';
-import { motion } from 'framer-motion';
 
 type UseToasterHandlers = ReturnType<typeof useToaster>['handlers'];
 
@@ -19,7 +19,7 @@ export const CustomToast = ({
   updateHeight,
 }: CustomToastProps) => {
   const ref = (element: HTMLButtonElement) => {
-    if (element && typeof toast.height !== 'number') {
+    if (typeof toast.height !== 'number') {
       const height = element.getBoundingClientRect().height;
       updateHeight(toast.id, height);
     }
