@@ -1,10 +1,31 @@
 import { createRouteMask } from '@tanstack/react-router';
 import { routeTree } from './routeTree.gen';
+import type { AllRoutes } from './router.types';
 
-const newsMask = createRouteMask({
+type CreateRouteMasks = {
+  routeTree: typeof routeTree;
+  masks: { from: AllRoutes; to: AllRoutes }[];
+};
+
+const createRouteMasks = ({ routeTree, masks }: CreateRouteMasks) =>
+  masks.map((mask) =>
+    createRouteMask({
+      routeTree,
+      ...mask,
+    }),
+  );
+
+export const routeMasks = createRouteMasks({
   routeTree,
-  from: '/dashboard/news',
-  to: '/dashboard',
+  masks: [
+    {
+      // masks search params
+      from: '/login',
+      to: '/login',
+    },
+    {
+      from: '/dashboard/news',
+      to: '/dashboard',
+    },
+  ],
 });
-
-export const routeMasks = [newsMask];
