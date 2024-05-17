@@ -11,7 +11,6 @@ export const Route = createFileRoute('/_protected')({
 
   beforeLoad: ({
     context: {
-      baseAPI,
       userService,
       auth: { userId, token },
     },
@@ -25,8 +24,6 @@ export const Route = createFileRoute('/_protected')({
         },
       });
     }
-
-    baseAPI.defaults.headers.Authorization = `Bearer ${token}`;
 
     return {
       getUserByIdQueryOptions: queryOptions({
