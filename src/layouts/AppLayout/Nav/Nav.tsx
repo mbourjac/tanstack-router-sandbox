@@ -1,6 +1,6 @@
 import { useNavigate } from '@tanstack/react-router';
+import { Bulleted } from '../../../components/ui/Bulleted';
 import { useAuthStore } from '../../../services/auth/auth.store';
-import { Bulleted } from '../../ui/Bulleted';
 import { NavLink } from './NavLink';
 
 export const Nav = () => {

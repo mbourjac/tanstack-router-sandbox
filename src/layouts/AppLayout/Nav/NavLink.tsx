@@ -1,5 +1,5 @@
 import { Link, type ReactNode, type LinkProps } from '@tanstack/react-router';
-import { Bulleted } from '../../ui/Bulleted';
+import { Bulleted } from '../../../components/ui/Bulleted';
 
 type NavLinkProps = {
   to: LinkProps['to'];

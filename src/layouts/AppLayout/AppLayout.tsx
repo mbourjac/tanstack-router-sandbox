@@ -1,6 +1,6 @@
 import { Link, Outlet } from '@tanstack/react-router';
-import { Nav } from '../components/layout/Nav/Nav';
-import { CustomToaster } from '../components/ui/Toaster/CustomToaster';
+import { Nav } from './Nav/Nav';
+import { CustomToaster } from './Toaster/CustomToaster';
 
 export const AppLayout = () => {
   return (

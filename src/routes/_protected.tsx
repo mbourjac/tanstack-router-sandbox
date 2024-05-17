@@ -1,7 +1,7 @@
 import { queryOptions } from '@tanstack/react-query';
 import { createFileRoute, redirect } from '@tanstack/react-router';
-import { ProtectedError } from '../components/app/ProtectedError';
-import { ProtectedLayout } from '../layouts/ProtectedLayout';
+import { ProtectedError } from '../layouts/ProtectedLayout/ProtectedError';
+import { ProtectedLayout } from '../layouts/ProtectedLayout/ProtectedLayout';
 import type { AllRoutes } from '../router/router.types';
 
 export const Route = createFileRoute('/_protected')({
