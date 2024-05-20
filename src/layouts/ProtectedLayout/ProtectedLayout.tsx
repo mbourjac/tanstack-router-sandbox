@@ -1,9 +1,8 @@
-import { useSuspenseQuery } from '@tanstack/react-query';
-import { Outlet, useRouteContext } from '@tanstack/react-router';
+import { Outlet } from '@tanstack/react-router';
+import { useEnsuredUser } from '../../services/user/user.utils';
 
 export const ProtectedLayout = () => {
-  const { getUserByIdQueryOptions } = useRouteContext({ from: '/_protected' });
-  const { data: user } = useSuspenseQuery(getUserByIdQueryOptions);
+  const user = useEnsuredUser();
 
   return (
     <div className="flex w-full flex-col gap-4">
