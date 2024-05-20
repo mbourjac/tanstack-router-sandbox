@@ -4,6 +4,7 @@ import { persist } from 'zustand/middleware';
 import { getErrorMessage } from '../../helpers/errors';
 import { baseAPI } from '../../lib/axios.instance';
 import { loginRequest } from './auth.api';
+import { authDataSchema } from './auth.schemas';
 import type { Auth, LoginUser } from './auth.types';
 
 type AuthStore = {
@@ -27,7 +28,9 @@ export const useAuthStore = create<AuthStore>()(
 
         login: async (loginData) => {
           try {
-            const authData = await loginRequest(loginData);
+            const data = await loginRequest(loginData);
+            const authData = authDataSchema.parse(data);
+
             set({ auth: { isLoggedIn: true, ...authData } });
           } catch (error) {
             toast(getErrorMessage(error));
@@ -35,8 +38,8 @@ export const useAuthStore = create<AuthStore>()(
         },
 
         logout: () => {
-          delete baseAPI.defaults.headers.Authorization;
           set({ auth: loggedOutState });
+          delete baseAPI.defaults.headers.Authorization;
         },
       };
     },
