@@ -1,7 +1,8 @@
+import { randomSleep } from '../../helpers/mocks';
 import type { LoginUser } from './auth.types';
 
 export const loginRequest = async ({ password }: LoginUser) => {
-  await new Promise((resolve) => setTimeout(resolve, 500));
+  await randomSleep();
 
   return {
     userId: Math.floor(Math.random() * 10) + 1,
