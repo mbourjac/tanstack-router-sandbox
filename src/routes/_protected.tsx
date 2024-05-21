@@ -21,6 +21,7 @@ export const Route = createFileRoute('/_protected')({
         to: '/login',
         search: {
           redirect: location.href as AllRoutes,
+          isLogout: undefined,
         },
       });
     }

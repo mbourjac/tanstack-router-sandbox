@@ -1,18 +1,20 @@
 import { useEffect } from 'react';
-import { useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import { Input } from '../components/form/Input';
 import { useZodForm } from '../hooks/use-zod-form';
-import { Route } from '../routes/_public/login';
 import { loginUserSchema } from '../services/auth/auth.schemas';
 import { useAuthStore } from '../services/auth/auth.store';
 import type { LoginUser } from '../services/auth/auth.types';
 
+const route = getRouteApi('/_public/login');
+
 export const Login = () => {
-  const navigate = useNavigate({ from: '/login' });
-  const { redirect } = Route.useSearch();
+  const navigate = route.useNavigate();
+  const { redirect, isLogout } = route.useSearch();
 
   const { isLoggedIn } = useAuthStore((state) => state.auth);
   const login = useAuthStore((state) => state.login);
+  const logout = useAuthStore((state) => state.logout);
 
   const {
     handleSubmit,
@@ -25,18 +27,14 @@ export const Login = () => {
   };
 
   useEffect(() => {
-    if (!isLoggedIn) return;
+    if (isLogout) logout();
+  }, [isLogout, logout]);
 
+  useEffect(() => {
     const redirectUser = async () => {
-      if (!redirect || redirect === '/dashboard') {
-        await navigate({
-          to: '/dashboard/news',
-        });
-      } else {
-        await navigate({
-          to: redirect,
-        });
-      }
+      await navigate({
+        to: isLoggedIn ? redirect ?? '/dashboard' : '/login',
+      });
     };
 
     void redirectUser();
