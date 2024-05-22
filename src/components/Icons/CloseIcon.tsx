@@ -8,7 +8,7 @@ export const CloseIcon = () => {
       viewBox="0 0 490 490"
       xmlSpace="preserve"
       fill="currentColor"
-      className="h-6 w-6"
+      className="h-5 w-5"
       aria-hidden="true"
     >
       <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
