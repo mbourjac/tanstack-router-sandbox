@@ -6,17 +6,16 @@ import type { AllRoutes } from '../router/router.types';
 
 export const Route = createFileRoute('/_protected')({
   component: ProtectedLayout,
-  pendingComponent: () => <div>Loading...</div>,
   errorComponent: ProtectedError,
-
   beforeLoad: ({
     context: {
+      auth: { userId },
       userService,
-      auth: { userId, token },
+      postService,
     },
     location,
   }) => {
-    if (!userId || !token) {
+    if (!userId) {
       throw redirect({
         to: '/login',
         search: {
@@ -31,10 +30,16 @@ export const Route = createFileRoute('/_protected')({
         queryKey: ['user', { userId }],
         queryFn: () => userService().getUserById(userId),
       }),
+      getAllPostsQueryOptions: queryOptions({
+        queryKey: ['posts', 'user', { userId }],
+        queryFn: () => postService().getAllPosts(userId),
+      }),
     };
   },
-
-  loader: ({ context: { queryClient, getUserByIdQueryOptions } }) => {
-    void queryClient.ensureQueryData(getUserByIdQueryOptions);
+  loader: async ({
+    context: { queryClient, getUserByIdQueryOptions, getAllPostsQueryOptions },
+  }) => {
+    await queryClient.ensureQueryData(getUserByIdQueryOptions);
+    await queryClient.ensureQueryData(getAllPostsQueryOptions);
   },
 });
