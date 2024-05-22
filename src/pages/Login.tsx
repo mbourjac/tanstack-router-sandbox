@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { getRouteApi } from '@tanstack/react-router';
+import { getRouteApi, useRouterState } from '@tanstack/react-router';
 import { Input } from '../components/form/Input';
 import { useZodForm } from '../hooks/use-zod-form';
 import { loginUserSchema } from '../services/auth/auth.schemas';
@@ -11,6 +11,9 @@ const route = getRouteApi('/_public/login');
 export const Login = () => {
   const navigate = route.useNavigate();
   const { redirect, isLogout } = route.useSearch();
+  const isLoading = useRouterState({
+    select: (state) => state.isLoading,
+  });
 
   const { isLoggedIn } = useAuthStore((state) => state.auth);
   const login = useAuthStore((state) => state.login);
@@ -56,7 +59,7 @@ export const Login = () => {
           />
           <button
             className="w-fit bg-black px-4 py-2 text-xl text-white disabled:bg-slate-400"
-            disabled={isSubmitting}
+            disabled={isSubmitting || isLoading}
           >
             Submit
           </button>
