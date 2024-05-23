@@ -33,6 +33,6 @@ export const useFormField = <T extends FieldValues>({
   return {
     attributes,
     fieldState,
-    errorMessage,
+    errorMessage: errorMessage?.toString() ?? '',
   };
 };
