@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { getRouteApi, useRouterState } from '@tanstack/react-router';
-import { Input } from '../components/form/Input';
+import { Input } from '../components/forms/Input';
 import { useZodForm } from '../hooks/use-zod-form';
 import { loginUserSchema } from '../services/auth/auth.schemas';
 import { useAuthStore } from '../services/auth/auth.store';
