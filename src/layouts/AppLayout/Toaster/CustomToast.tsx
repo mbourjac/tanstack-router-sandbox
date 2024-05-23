@@ -18,8 +18,8 @@ export const CustomToast = ({
   calculateOffset,
   updateHeight,
 }: CustomToastProps) => {
-  const ref = (element: HTMLButtonElement) => {
-    if (typeof toast.height !== 'number') {
+  const ref = (element: HTMLButtonElement | null) => {
+    if (element && typeof toast.height !== 'number') {
       const height = element.getBoundingClientRect().height;
       updateHeight(toast.id, height);
     }
