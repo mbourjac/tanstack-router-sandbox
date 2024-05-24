@@ -7,7 +7,6 @@ export const router = createRouter({
   routeTree,
   context: routerContext,
   routeMasks,
-  defaultPendingMs: Infinity,
 });
 
 declare module '@tanstack/react-router' {
