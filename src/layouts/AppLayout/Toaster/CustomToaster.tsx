@@ -2,7 +2,17 @@ import { AnimatePresence } from 'framer-motion';
 import { useToaster } from 'react-hot-toast';
 import { CustomToast } from './CustomToast';
 
-export const CustomToaster = () => {
+type CustomToasterProps = {
+  toastsLimit?: number;
+  reverseOrder?: boolean;
+  gutter?: number;
+};
+
+export const CustomToaster = ({
+  toastsLimit = 3,
+  reverseOrder = false,
+  gutter = 8,
+}: CustomToasterProps) => {
   const { toasts, handlers } = useToaster();
   const { startPause, endPause, calculateOffset, updateHeight } = handlers;
 
@@ -17,9 +27,12 @@ export const CustomToaster = () => {
           <CustomToast
             key={toast.id}
             toast={toast}
-            index={index}
+            offset={calculateOffset(toast, {
+              reverseOrder,
+              gutter,
+            })}
+            isOverLimit={index > toastsLimit - 1}
             updateHeight={updateHeight}
-            calculateOffset={calculateOffset}
           />
         ))}
       </AnimatePresence>

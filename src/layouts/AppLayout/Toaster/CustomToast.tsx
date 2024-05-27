@@ -3,19 +3,17 @@ import { motion } from 'framer-motion';
 import type { Toast, useToaster } from 'react-hot-toast';
 import { toast as baseToast } from 'react-hot-toast';
 
-type UseToasterHandlers = ReturnType<typeof useToaster>['handlers'];
-
 type CustomToastProps = {
   toast: Toast;
-  index: number;
-  calculateOffset: UseToasterHandlers['calculateOffset'];
-  updateHeight: UseToasterHandlers['updateHeight'];
+  offset: number;
+  isOverLimit: boolean;
+  updateHeight: ReturnType<typeof useToaster>['handlers']['updateHeight'];
 };
 
 export const CustomToast = ({
   toast,
-  index,
-  calculateOffset,
+  offset,
+  isOverLimit,
   updateHeight,
 }: CustomToastProps) => {
   const { id, visible, message, height } = toast;
@@ -26,13 +24,6 @@ export const CustomToast = ({
       updateHeight(id, height);
     }
   };
-
-  const offset = calculateOffset(toast, {
-    reverseOrder: false,
-    gutter: 8,
-  });
-
-  const isOverLimit = index > 2;
 
   useEffect(() => {
     if (isOverLimit) baseToast.dismiss(id);
