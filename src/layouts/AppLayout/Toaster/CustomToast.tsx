@@ -20,9 +20,9 @@ export const CustomToast = ({
 }: CustomToastProps) => {
   const { id, visible, message, height } = toast;
 
-  const ref = (element: HTMLButtonElement | null) => {
-    if (element && typeof height !== 'number') {
-      const height = element.getBoundingClientRect().height;
+  const toastRef = (node: HTMLButtonElement | null) => {
+    if (node && !height) {
+      const height = node.getBoundingClientRect().height;
       updateHeight(id, height);
     }
   };
@@ -40,7 +40,7 @@ export const CustomToast = ({
 
   return (
     <motion.button
-      ref={ref}
+      ref={toastRef}
       className="border-main pointer-events-auto absolute bottom-4 right-4 w-96 bg-white px-6 py-4 text-left"
       initial={{ y: 100, opacity: 0 }}
       animate={{
