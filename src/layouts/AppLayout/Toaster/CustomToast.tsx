@@ -18,10 +18,12 @@ export const CustomToast = ({
   calculateOffset,
   updateHeight,
 }: CustomToastProps) => {
+  const { id, visible, message, height } = toast;
+
   const ref = (element: HTMLButtonElement | null) => {
-    if (element && typeof toast.height !== 'number') {
+    if (element && typeof height !== 'number') {
       const height = element.getBoundingClientRect().height;
-      updateHeight(toast.id, height);
+      updateHeight(id, height);
     }
   };
 
@@ -33,10 +35,8 @@ export const CustomToast = ({
   const isOverLimit = index > 2;
 
   useEffect(() => {
-    if (isOverLimit) {
-      baseToast.dismiss(toast.id);
-    }
-  }, [toast, isOverLimit]);
+    if (isOverLimit) baseToast.dismiss(id);
+  }, [id, isOverLimit]);
 
   return (
     <motion.button
@@ -45,14 +45,12 @@ export const CustomToast = ({
       initial={{ y: 100, opacity: 0 }}
       animate={{
         y: -offset,
-        opacity: toast.visible ? 1 : 0,
+        opacity: visible ? 1 : 0,
       }}
       transition={{ type: 'spring', damping: 15 }}
-      onClick={() => baseToast.dismiss(toast.id)}
+      onClick={() => baseToast.dismiss(id)}
     >
-      {typeof toast.message === 'function' ?
-        toast.message(toast)
-      : toast.message}
+      {typeof message === 'function' ? message(toast) : message}
     </motion.button>
   );
 };
