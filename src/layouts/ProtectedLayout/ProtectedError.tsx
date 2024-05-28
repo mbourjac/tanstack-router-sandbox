@@ -22,7 +22,6 @@ export const ProtectedError = ({ error }: ProtectedErrorProp) => {
       to="/login"
       search={{
         redirect: location.href as AllRoutes,
-        isLogout: true,
       }}
     />
   );

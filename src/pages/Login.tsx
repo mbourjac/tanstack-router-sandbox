@@ -10,14 +10,13 @@ const route = getRouteApi('/_public/login');
 
 export const Login = () => {
   const navigate = route.useNavigate();
-  const { redirect, isLogout } = route.useSearch();
+  const redirect = route.useSearch({ select: (search) => search.redirect });
   const isLoading = useRouterState({
     select: (state) => state.isLoading,
   });
 
   const { isLoggedIn } = useAuthStore((state) => state.auth);
   const login = useAuthStore((state) => state.login);
-  const logout = useAuthStore((state) => state.logout);
 
   const {
     handleSubmit,
@@ -30,17 +29,11 @@ export const Login = () => {
   };
 
   useEffect(() => {
-    if (isLogout) logout();
-  }, [isLogout, logout]);
+    if (!isLoggedIn) return;
 
-  useEffect(() => {
-    const redirectUser = async () => {
-      await navigate({
-        to: isLoggedIn ? redirect ?? '/dashboard' : '/login',
-      });
-    };
-
-    void redirectUser();
+    void navigate({
+      to: redirect ?? '/dashboard',
+    });
   }, [isLoggedIn, navigate, redirect]);
 
   return (
