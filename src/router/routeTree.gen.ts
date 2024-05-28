@@ -73,65 +73,38 @@ const ProtectedDashboardNewsRoute = ProtectedDashboardNewsImport.update({
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
     '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
     '/_protected': {
-      id: '/_protected'
-      path: ''
-      fullPath: ''
       preLoaderRoute: typeof ProtectedImport
       parentRoute: typeof rootRoute
     }
     '/_public': {
-      id: '/_public'
-      path: ''
-      fullPath: ''
       preLoaderRoute: typeof PublicImport
       parentRoute: typeof rootRoute
     }
     '/_protected/dashboard': {
-      id: '/_protected/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
       preLoaderRoute: typeof ProtectedDashboardImport
       parentRoute: typeof ProtectedImport
     }
     '/_protected/profile': {
-      id: '/_protected/profile'
-      path: '/profile'
-      fullPath: '/profile'
       preLoaderRoute: typeof ProtectedProfileImport
       parentRoute: typeof ProtectedImport
     }
     '/_public/about': {
-      id: '/_public/about'
-      path: '/about'
-      fullPath: '/about'
       preLoaderRoute: typeof PublicAboutImport
       parentRoute: typeof PublicImport
     }
     '/_public/login': {
-      id: '/_public/login'
-      path: '/login'
-      fullPath: '/login'
       preLoaderRoute: typeof PublicLoginImport
       parentRoute: typeof PublicImport
     }
     '/_protected/dashboard/news': {
-      id: '/_protected/dashboard/news'
-      path: '/news'
-      fullPath: '/dashboard/news'
       preLoaderRoute: typeof ProtectedDashboardNewsImport
       parentRoute: typeof ProtectedDashboardImport
     }
     '/_protected/dashboard/': {
-      id: '/_protected/dashboard/'
-      path: '/'
-      fullPath: '/dashboard/'
       preLoaderRoute: typeof ProtectedDashboardIndexImport
       parentRoute: typeof ProtectedDashboardImport
     }
@@ -140,16 +113,16 @@ declare module '@tanstack/react-router' {
 
 // Create and export the route tree
 
-export const routeTree = rootRoute.addChildren({
+export const routeTree = rootRoute.addChildren([
   IndexRoute,
-  ProtectedRoute: ProtectedRoute.addChildren({
-    ProtectedDashboardRoute: ProtectedDashboardRoute.addChildren({
+  ProtectedRoute.addChildren([
+    ProtectedDashboardRoute.addChildren([
       ProtectedDashboardNewsRoute,
       ProtectedDashboardIndexRoute,
-    }),
+    ]),
     ProtectedProfileRoute,
-  }),
-  PublicRoute: PublicRoute.addChildren({ PublicAboutRoute, PublicLoginRoute }),
-})
+  ]),
+  PublicRoute.addChildren([PublicAboutRoute, PublicLoginRoute]),
+])
 
 /* prettier-ignore-end */

@@ -1,20 +1,23 @@
-import { Sticky } from '../../components/ui/Sticky';
-import { useFixedBody } from '../../hooks/use-fixed-body';
+import { useRouterState } from '@tanstack/react-router';
 import { DashboardSkeleton } from '../../pages/Dashboard/DashboardSkeleton';
+import { Profile } from '../../pages/Profile';
 import { DashboardNav } from '../DashboardLayout/DashboardNav';
 
 export const ProtectedLayoutSkeleton = () => {
-  useFixedBody();
+  const location = useRouterState({ select: (state) => state.location });
 
   return (
-    <div className="flex w-full flex-col gap-4">
-      <Sticky>
-        <div className="animate-skeleton h-[4.75rem]"></div>
-      </Sticky>
-      <div className="flex grow gap-4">
-        <DashboardNav />
-        <DashboardSkeleton />
-      </div>
+    <div className="flex w-full flex-col">
+      <p className="border-main relative z-10 bg-white p-4 text-xl font-extrabold tracking-wider">
+        Hello |
+      </p>
+      {location.pathname === '/profile' ?
+        <Profile />
+      : <div className="flex grow gap-4">
+          <DashboardNav />
+          <DashboardSkeleton />
+        </div>
+      }
     </div>
   );
 };

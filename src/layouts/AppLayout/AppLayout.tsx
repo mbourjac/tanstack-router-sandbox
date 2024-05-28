@@ -6,7 +6,7 @@ export const AppLayout = () => {
   return (
     <>
       <CustomToaster />
-      <div className="flex min-h-screen flex-col px-4 text-xl font-bold">
+      <div className="flex h-screen flex-col overflow-hidden px-4 text-xl font-bold">
         <div className="sticky top-0 z-10 bg-white">
           <header className="border-main mt-4 flex items-center justify-between p-4">
             <Link to="/">
