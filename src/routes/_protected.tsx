@@ -13,6 +13,7 @@ export const Route = createFileRoute('/_protected')({
     context: {
       auth: { userId },
       userService,
+      postService,
     },
     location,
   }) => {
@@ -27,14 +28,20 @@ export const Route = createFileRoute('/_protected')({
     }
 
     return {
-      auth: { userId },
       getUserByIdQueryOptions: queryOptions({
         queryKey: ['user', { userId }],
         queryFn: () => userService().getUserById(userId),
       }),
+      getAllPostsQueryOptions: queryOptions({
+        queryKey: ['posts', 'user', { userId }],
+        queryFn: () => postService().getAllPosts(userId),
+      }),
     };
   },
-  loader: async ({ context: { queryClient, getUserByIdQueryOptions } }) => {
+  loader: async ({
+    context: { queryClient, getUserByIdQueryOptions, getAllPostsQueryOptions },
+  }) => {
     await queryClient.ensureQueryData(getUserByIdQueryOptions);
+    await queryClient.ensureQueryData(getAllPostsQueryOptions);
   },
 });
