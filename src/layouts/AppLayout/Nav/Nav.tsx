@@ -1,18 +1,16 @@
-import { useNavigate, useRouterState } from '@tanstack/react-router';
+import { useMatches, useNavigate } from '@tanstack/react-router';
 import { Bulleted } from '../../../components/ui/Bulleted';
 import { useAuthStore } from '../../../services/auth/auth.store';
 import { NavLink } from './NavLink';
 
 export const Nav = () => {
   const navigate = useNavigate();
-  const isLoading = useRouterState({
-    select: (state) => state.isLoading,
-  });
 
   const { isLoggedIn } = useAuthStore((state) => state.auth);
   const logout = useAuthStore((state) => state.logout);
 
-  const isLoggedInNav = isLoggedIn && !isLoading;
+  const isLogin = !!useMatches().find(({ pathname }) => pathname === '/login');
+  const isLoggedInNav = isLoggedIn && !isLogin;
 
   const handleLogout = async () => {
     logout();
