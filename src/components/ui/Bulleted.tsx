@@ -9,7 +9,6 @@ type BulletedProps = {
 export const Bulleted = ({ isActive, children }: BulletedProps) => {
   return (
     <span className="inline-flex items-center gap-3">
-      <span>{children}</span>
       <span className="relative flex h-4 w-4 items-center justify-center rounded-full bg-black">
         <span
           className={cn(
@@ -18,6 +17,7 @@ export const Bulleted = ({ isActive, children }: BulletedProps) => {
           )}
         ></span>
       </span>
+      <span>{children}</span>
     </span>
   );
 };
