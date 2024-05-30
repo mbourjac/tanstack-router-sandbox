@@ -9,7 +9,7 @@ export const ProtectedLayoutSkeleton = () => {
   return (
     <div className="flex w-full flex-col">
       <p className="border-main relative z-10 bg-white p-4 text-xl font-extrabold tracking-wider">
-        Hello |
+        Hello <span className="animate-blinker font-black">|</span>
       </p>
       {location.pathname === '/profile' ?
         <Profile />
