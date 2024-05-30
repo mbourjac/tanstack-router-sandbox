@@ -1,21 +1,21 @@
 import { useEffect, useState } from 'react';
 import { Link, Outlet } from '@tanstack/react-router';
 import { MenuIcon } from '../../components/icons/MenuIcon';
-import { useIsMobile } from '../../hooks/use-is-mobile';
+import { useDevice } from '../../hooks/use-device';
 import { Nav } from './Nav/Nav';
 import { CustomToaster } from './Toaster/CustomToaster';
 
 export const AppLayout = () => {
   const [isNavDisplayed, setIsNavDisplayed] = useState(false);
-  const isMobile = useIsMobile();
+  const { isMediumDevice } = useDevice();
 
   const handleToggleMenu = () => {
     setIsNavDisplayed((prevIsMenuOpen) => !prevIsMenuOpen);
   };
 
   useEffect(() => {
-    setIsNavDisplayed(!isMobile);
-  }, [isMobile]);
+    setIsNavDisplayed(!isMediumDevice);
+  }, [isMediumDevice]);
 
   return (
     <>
@@ -31,7 +31,7 @@ export const AppLayout = () => {
               </Link>
               <button
                 onClick={handleToggleMenu}
-                className="p-[0.125rem] lg:hidden"
+                className="px-4 py-3 lg:hidden"
               >
                 <MenuIcon />
                 <span className="sr-only">{`${
@@ -39,7 +39,7 @@ export const AppLayout = () => {
                 } menu`}</span>
               </button>
             </div>
-            <Nav isDisplayed={isNavDisplayed} isMobile={isMobile} />
+            <Nav isDisplayed={isNavDisplayed} isMobile={isMediumDevice} />
           </header>
           <div className="h-4"></div>
         </div>

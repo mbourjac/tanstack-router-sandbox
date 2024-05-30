@@ -3,7 +3,7 @@ import { CloseIcon } from '../components/icons/CloseIcon';
 
 export const News = () => {
   return (
-    <div className="border-main mt-4 flex w-full justify-between">
+    <div className="border-main mt-4 flex h-full w-full justify-between">
       <div className="flex h-fit w-full justify-between">
         <h2 className="p-4">Hello /_protected/dashboard/news!</h2>
         <Link to="/dashboard" className="flex items-center px-5 py-4">

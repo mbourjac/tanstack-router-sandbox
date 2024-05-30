@@ -4,7 +4,7 @@ export const DashboardSkeleton = () => {
       {Array.from({ length: 12 }).map((_, index) => (
         <div
           key={index}
-          className="mt-4 h-[14.25rem] w-[23.75rem] grow animate-skeleton bg-black"
+          className="h-[14.25rem] w-[23.75rem] grow animate-skeleton bg-black md:mt-4"
         ></div>
       ))}
     </div>

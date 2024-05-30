@@ -13,7 +13,7 @@ export const ProtectedLayoutSkeleton = () => {
       </p>
       {location.pathname === '/profile' ?
         <Profile />
-      : <div className="flex grow gap-4">
+      : <div className="flex grow flex-col gap-4 md:flex-row">
           <DashboardNav />
           <DashboardSkeleton />
         </div>
