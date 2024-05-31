@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, Outlet } from '@tanstack/react-router';
-import { MenuIcon } from '../../components/icons/MenuIcon';
+import { Icon } from '../../components/ui/Icon';
 import { useDevice } from '../../hooks/use-device';
 import { Nav } from './Nav/Nav';
 import { CustomToaster } from './Toaster/CustomToaster';
@@ -33,7 +33,7 @@ export const AppLayout = () => {
                 onClick={handleToggleMenu}
                 className="px-4 py-3 lg:hidden"
               >
-                <MenuIcon />
+                <Icon kind="menu" className="size-8" aria-hidden />
                 <span className="sr-only">{`${
                   isNavDisplayed ? 'Close' : 'Open'
                 } menu`}</span>

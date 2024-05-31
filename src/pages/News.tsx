@@ -1,4 +1,5 @@
 import { Link } from '@tanstack/react-router';
+import { Icon } from '../components/ui/Icon';
 import { useDashboardHeight } from '../hooks/use-dashboard-height';
 
 export const News = () => {
@@ -12,7 +13,7 @@ export const News = () => {
       <div className="sticky top-0 flex h-fit w-full justify-between border-b-8 border-black bg-white">
         <h2 className="p-4">Hello /_protected/dashboard/news!</h2>
         <Link to="/dashboard" className="flex items-center px-5 py-4">
-          <CloseIcon />
+          <Icon kind="close" aria-hidden />
           <span className="sr-only">Back to dashboard</span>
         </Link>
       </div>
