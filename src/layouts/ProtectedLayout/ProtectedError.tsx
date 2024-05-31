@@ -14,7 +14,7 @@ export const ProtectedError = ({ error }: ProtectedErrorProp) => {
   });
 
   useEffect(() => {
-    toast(getErrorMessage(error), { id: 'protected-route-error' });
+    toast.error(getErrorMessage(error), { id: 'protected-route-error' });
   }, [error]);
 
   return (

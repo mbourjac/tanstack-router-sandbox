@@ -33,7 +33,7 @@ export const useAuthStore = create<AuthStore>()(
 
             set({ auth: { isLoggedIn: true, ...authData } });
           } catch (error) {
-            toast(getErrorMessage(error));
+            toast.error(getErrorMessage(error));
           }
         },
 
