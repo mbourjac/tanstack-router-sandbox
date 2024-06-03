@@ -63,16 +63,17 @@ export const Nav = ({ isDisplayed, isMobile }: NavProps) => {
           </>
         )}
         <NavLink to="/about">About</NavLink>
-        <div>
-          {isLoggedInNav ?
-            <button onClick={() => void handleLogout()}>
-              <Bulleted>Logout</Bulleted>
-            </button>
-          : <NavLink to="/login" isLoading={isLoading}>
+        {isLoggedInNav ?
+          <button onClick={() => void handleLogout()}>
+            <Bulleted>Logout</Bulleted>
+          </button>
+        : <>
+            <NavLink to="/register">Register</NavLink>
+            <NavLink to="/login" isLoading={isLoading}>
               Login
             </NavLink>
-          }
-        </div>
+          </>
+        }
       </nav>
     )
   );

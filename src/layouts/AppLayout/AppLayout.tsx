@@ -43,9 +43,7 @@ export const AppLayout = () => {
           </header>
           <div className="h-4"></div>
         </div>
-        <div className="mb-4 flex flex-grow">
-          <Outlet />
-        </div>
+        <Outlet />
       </div>
     </>
   );

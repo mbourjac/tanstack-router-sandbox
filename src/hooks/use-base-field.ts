@@ -7,7 +7,7 @@ import type {
   UseFormRegister,
 } from 'react-hook-form';
 
-export type FieldBaseProps<T extends FieldValues> = {
+export type BaseFieldProps<T extends FieldValues> = {
   id: Path<T>;
   type?: HTMLInputTypeAttribute;
   formState: FormState<T>;
@@ -15,13 +15,13 @@ export type FieldBaseProps<T extends FieldValues> = {
   register: UseFormRegister<T>;
 };
 
-export const useFormField = <T extends FieldValues>({
+export const useBaseField = <T extends FieldValues>({
   id,
   type,
   formState,
   getFieldState,
   register,
-}: FieldBaseProps<T>) => {
+}: BaseFieldProps<T>) => {
   const attributes = {
     id,
     type,

@@ -14,6 +14,7 @@ import { Route as rootRoute } from './../routes/__root'
 import { Route as PublicImport } from './../routes/_public'
 import { Route as ProtectedImport } from './../routes/_protected'
 import { Route as IndexImport } from './../routes/index'
+import { Route as PublicRegisterImport } from './../routes/_public/register'
 import { Route as PublicLoginImport } from './../routes/_public/login'
 import { Route as PublicAboutImport } from './../routes/_public/about'
 import { Route as ProtectedProfileImport } from './../routes/_protected/profile'
@@ -36,6 +37,11 @@ const ProtectedRoute = ProtectedImport.update({
 const IndexRoute = IndexImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
+} as any)
+
+const PublicRegisterRoute = PublicRegisterImport.update({
+  path: '/register',
+  getParentRoute: () => PublicRoute,
 } as any)
 
 const PublicLoginRoute = PublicLoginImport.update({
@@ -73,38 +79,72 @@ const ProtectedDashboardNewsRoute = ProtectedDashboardNewsImport.update({
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
     '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
     '/_protected': {
+      id: '/_protected'
+      path: ''
+      fullPath: ''
       preLoaderRoute: typeof ProtectedImport
       parentRoute: typeof rootRoute
     }
     '/_public': {
+      id: '/_public'
+      path: ''
+      fullPath: ''
       preLoaderRoute: typeof PublicImport
       parentRoute: typeof rootRoute
     }
     '/_protected/dashboard': {
+      id: '/_protected/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
       preLoaderRoute: typeof ProtectedDashboardImport
       parentRoute: typeof ProtectedImport
     }
     '/_protected/profile': {
+      id: '/_protected/profile'
+      path: '/profile'
+      fullPath: '/profile'
       preLoaderRoute: typeof ProtectedProfileImport
       parentRoute: typeof ProtectedImport
     }
     '/_public/about': {
+      id: '/_public/about'
+      path: '/about'
+      fullPath: '/about'
       preLoaderRoute: typeof PublicAboutImport
       parentRoute: typeof PublicImport
     }
     '/_public/login': {
+      id: '/_public/login'
+      path: '/login'
+      fullPath: '/login'
       preLoaderRoute: typeof PublicLoginImport
       parentRoute: typeof PublicImport
     }
+    '/_public/register': {
+      id: '/_public/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof PublicRegisterImport
+      parentRoute: typeof PublicImport
+    }
     '/_protected/dashboard/news': {
+      id: '/_protected/dashboard/news'
+      path: '/news'
+      fullPath: '/dashboard/news'
       preLoaderRoute: typeof ProtectedDashboardNewsImport
       parentRoute: typeof ProtectedDashboardImport
     }
     '/_protected/dashboard/': {
+      id: '/_protected/dashboard/'
+      path: '/'
+      fullPath: '/dashboard/'
       preLoaderRoute: typeof ProtectedDashboardIndexImport
       parentRoute: typeof ProtectedDashboardImport
     }
@@ -113,16 +153,85 @@ declare module '@tanstack/react-router' {
 
 // Create and export the route tree
 
-export const routeTree = rootRoute.addChildren([
+export const routeTree = rootRoute.addChildren({
   IndexRoute,
-  ProtectedRoute.addChildren([
-    ProtectedDashboardRoute.addChildren([
+  ProtectedRoute: ProtectedRoute.addChildren({
+    ProtectedDashboardRoute: ProtectedDashboardRoute.addChildren({
       ProtectedDashboardNewsRoute,
       ProtectedDashboardIndexRoute,
-    ]),
+    }),
     ProtectedProfileRoute,
-  ]),
-  PublicRoute.addChildren([PublicAboutRoute, PublicLoginRoute]),
-])
+  }),
+  PublicRoute: PublicRoute.addChildren({
+    PublicAboutRoute,
+    PublicLoginRoute,
+    PublicRegisterRoute,
+  }),
+})
 
 /* prettier-ignore-end */
+
+/* ROUTE_MANIFEST_START
+{
+  "routes": {
+    "__root__": {
+      "filePath": "__root.tsx",
+      "children": [
+        "/",
+        "/_protected",
+        "/_public"
+      ]
+    },
+    "/": {
+      "filePath": "index.tsx"
+    },
+    "/_protected": {
+      "filePath": "_protected.tsx",
+      "children": [
+        "/_protected/dashboard",
+        "/_protected/profile"
+      ]
+    },
+    "/_public": {
+      "filePath": "_public.tsx",
+      "children": [
+        "/_public/about",
+        "/_public/login",
+        "/_public/register"
+      ]
+    },
+    "/_protected/dashboard": {
+      "filePath": "_protected/dashboard.tsx",
+      "parent": "/_protected",
+      "children": [
+        "/_protected/dashboard/news",
+        "/_protected/dashboard/"
+      ]
+    },
+    "/_protected/profile": {
+      "filePath": "_protected/profile.tsx",
+      "parent": "/_protected"
+    },
+    "/_public/about": {
+      "filePath": "_public/about.tsx",
+      "parent": "/_public"
+    },
+    "/_public/login": {
+      "filePath": "_public/login.tsx",
+      "parent": "/_public"
+    },
+    "/_public/register": {
+      "filePath": "_public/register.tsx",
+      "parent": "/_public"
+    },
+    "/_protected/dashboard/news": {
+      "filePath": "_protected/dashboard/news.tsx",
+      "parent": "/_protected/dashboard"
+    },
+    "/_protected/dashboard/": {
+      "filePath": "_protected/dashboard/index.tsx",
+      "parent": "/_protected/dashboard"
+    }
+  }
+}
+ROUTE_MANIFEST_END */
