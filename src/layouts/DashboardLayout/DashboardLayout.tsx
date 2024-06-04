@@ -1,5 +1,5 @@
 import { Outlet } from '@tanstack/react-router';
-import { DashboardNav } from './DashboardNav';
+import { DashboardNav } from './DashboardNav/DashboardNav';
 
 export const DashboardLayout = () => {
   return (

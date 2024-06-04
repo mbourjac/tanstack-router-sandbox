@@ -21,6 +21,8 @@ import { Route as ProtectedProfileImport } from './../routes/_protected/profile'
 import { Route as ProtectedDashboardImport } from './../routes/_protected/dashboard'
 import { Route as ProtectedDashboardIndexImport } from './../routes/_protected/dashboard/index'
 import { Route as ProtectedDashboardNewsImport } from './../routes/_protected/dashboard/news'
+import { Route as ProtectedDashboardFeaturesImport } from './../routes/_protected/dashboard/features'
+import { Route as ProtectedDashboardEventsImport } from './../routes/_protected/dashboard/events'
 
 // Create/Update Routes
 
@@ -71,6 +73,18 @@ const ProtectedDashboardIndexRoute = ProtectedDashboardIndexImport.update({
 
 const ProtectedDashboardNewsRoute = ProtectedDashboardNewsImport.update({
   path: '/news',
+  getParentRoute: () => ProtectedDashboardRoute,
+} as any)
+
+const ProtectedDashboardFeaturesRoute = ProtectedDashboardFeaturesImport.update(
+  {
+    path: '/features',
+    getParentRoute: () => ProtectedDashboardRoute,
+  } as any,
+)
+
+const ProtectedDashboardEventsRoute = ProtectedDashboardEventsImport.update({
+  path: '/events',
   getParentRoute: () => ProtectedDashboardRoute,
 } as any)
 
@@ -134,6 +148,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicRegisterImport
       parentRoute: typeof PublicImport
     }
+    '/_protected/dashboard/events': {
+      id: '/_protected/dashboard/events'
+      path: '/events'
+      fullPath: '/dashboard/events'
+      preLoaderRoute: typeof ProtectedDashboardEventsImport
+      parentRoute: typeof ProtectedDashboardImport
+    }
+    '/_protected/dashboard/features': {
+      id: '/_protected/dashboard/features'
+      path: '/features'
+      fullPath: '/dashboard/features'
+      preLoaderRoute: typeof ProtectedDashboardFeaturesImport
+      parentRoute: typeof ProtectedDashboardImport
+    }
     '/_protected/dashboard/news': {
       id: '/_protected/dashboard/news'
       path: '/news'
@@ -157,6 +185,8 @@ export const routeTree = rootRoute.addChildren({
   IndexRoute,
   ProtectedRoute: ProtectedRoute.addChildren({
     ProtectedDashboardRoute: ProtectedDashboardRoute.addChildren({
+      ProtectedDashboardEventsRoute,
+      ProtectedDashboardFeaturesRoute,
       ProtectedDashboardNewsRoute,
       ProtectedDashboardIndexRoute,
     }),
@@ -204,6 +234,8 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "_protected/dashboard.tsx",
       "parent": "/_protected",
       "children": [
+        "/_protected/dashboard/events",
+        "/_protected/dashboard/features",
         "/_protected/dashboard/news",
         "/_protected/dashboard/"
       ]
@@ -223,6 +255,14 @@ export const routeTree = rootRoute.addChildren({
     "/_public/register": {
       "filePath": "_public/register.tsx",
       "parent": "/_public"
+    },
+    "/_protected/dashboard/events": {
+      "filePath": "_protected/dashboard/events.tsx",
+      "parent": "/_protected/dashboard"
+    },
+    "/_protected/dashboard/features": {
+      "filePath": "_protected/dashboard/features.tsx",
+      "parent": "/_protected/dashboard"
     },
     "/_protected/dashboard/news": {
       "filePath": "_protected/dashboard/news.tsx",
