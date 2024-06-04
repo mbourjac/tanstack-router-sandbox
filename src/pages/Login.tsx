@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { getRouteApi, useRouterState } from '@tanstack/react-router';
 import { Input } from '../components/forms/Input';
-import { Submit } from '../components/forms/Submit';
+import { Button } from '../components/ui/Button';
 import { useZodForm } from '../hooks/use-zod-form';
 import { loginUserSchema } from '../services/auth/auth.schemas';
 import { useAuthStore } from '../services/auth/auth.store';
@@ -51,7 +51,7 @@ export const Login = () => {
             label="Password"
             {...inputProps}
           />
-          <Submit isDisabled={isSubmitting || isLoading} />
+          <Button isDisabled={isSubmitting || isLoading}>Submit</Button>
         </form>
       </div>
     </div>
