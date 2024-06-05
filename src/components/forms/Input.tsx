@@ -1,5 +1,6 @@
 import type { FieldValues } from 'react-hook-form';
 import { type BaseFieldProps, useBaseField } from '../../hooks/use-base-field';
+import { ErrorMessage } from './ErrorMessage';
 
 export type InputProps<T extends FieldValues> = BaseFieldProps<T> & {
   label: string;
@@ -13,9 +14,7 @@ export const Input = <T extends FieldValues>(props: InputProps<T>) => {
     <div className="flex w-full flex-col gap-2">
       <label htmlFor={id} className="flex items-baseline justify-between">
         <span>{label}</span>
-        {errorMessage && (
-          <span className="text-base leading-none">{errorMessage}</span>
-        )}
+        <ErrorMessage message={errorMessage} />
       </label>
       <div>
         <input

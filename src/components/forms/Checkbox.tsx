@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import type { FieldValues } from 'react-hook-form';
 import { type BaseFieldProps, useBaseField } from '../../hooks/use-base-field';
+import { ErrorMessage } from './ErrorMessage';
 
 type CheckboxProps<T extends FieldValues> = Omit<BaseFieldProps<T>, 'type'> & {
   children: ReactNode;
@@ -33,9 +34,11 @@ export const Checkbox = <T extends FieldValues>(props: CheckboxProps<T>) => {
       </div>
       <label htmlFor={id} className="flex flex-col justify-between gap-2">
         <span>{children}</span>
-        <span className="flex h-6 items-center justify-end text-right text-base leading-none">
-          {errorMessage}
-        </span>
+        <ErrorMessage
+          message={errorMessage}
+          className="flex items-center justify-end text-right"
+          preventLayoutShift
+        />
       </label>
     </div>
   );
