@@ -22,17 +22,19 @@ export const useBaseField = <T extends FieldValues>({
   getFieldState,
   register,
 }: BaseFieldProps<T>) => {
+  const fieldState = getFieldState(id, formState);
+  const errorMessage = fieldState.error?.message?.toString();
+
   const attributes = {
     id,
     type,
+    'aria-invalid': !!errorMessage,
     ...register(id),
   };
-  const fieldState = getFieldState(id, formState);
-  const errorMessage = fieldState.error?.message;
 
   return {
     attributes,
     fieldState,
-    errorMessage: errorMessage?.toString() ?? '',
+    errorMessage,
   };
 };

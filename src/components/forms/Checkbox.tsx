@@ -19,7 +19,6 @@ export const Checkbox = <T extends FieldValues>(props: CheckboxProps<T>) => {
         <input
           {...attributes}
           className="peer mt-1 size-5 shrink-0 appearance-none border-4 border-black bg-white ring-primary checked:border-0 checked:bg-black focus:outline-none focus:ring"
-          aria-invalid={!!errorMessage}
         />
         <svg
           xmlns="http://www.w3.org/2000/svg"

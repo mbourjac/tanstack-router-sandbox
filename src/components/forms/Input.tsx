@@ -21,7 +21,6 @@ export const Input = <T extends FieldValues>(props: InputProps<T>) => {
         <input
           {...attributes}
           className="border-main w-full rounded-none px-2 py-1 ring-primary focus:outline-none focus:ring"
-          aria-invalid={!!errorMessage}
         />
       </div>
     </div>

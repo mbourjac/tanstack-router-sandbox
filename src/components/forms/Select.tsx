@@ -22,7 +22,6 @@ export const Select = <T extends FieldValues>(props: SelectProps<T>) => {
         <select
           {...attributes}
           className="border-main col-start-1 row-start-1 w-full appearance-none px-2 py-1 ring-primary focus:outline-none focus:ring"
-          aria-invalid={!!errorMessage}
         >
           <option value="" aria-hidden="true" disabled>
             Please choose an option
