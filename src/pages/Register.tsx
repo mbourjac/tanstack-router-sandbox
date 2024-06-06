@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useBlocker, useNavigate } from '@tanstack/react-router';
 import toast from 'react-hot-toast';
 import { Checkbox } from '../components/forms/Checkbox';
@@ -15,7 +16,8 @@ export const Register = () => {
 
   const {
     handleSubmit,
-    formState: { isSubmitting, isDirty },
+    formState: { isSubmitting, isDirty, isSubmitted },
+    reset: resetForm,
     inputProps,
   } = useZodForm(registerUserSchema, {
     defaultValues: {
@@ -37,8 +39,12 @@ export const Register = () => {
 
     await sleep(500);
     toast.success('Your account has been successfully created');
-    void navigate({ to: '/login' });
+    resetForm();
   };
+
+  useEffect(() => {
+    if (isSubmitted) void navigate({ to: '/login' });
+  }, [navigate, isSubmitted]);
 
   return (
     <>
