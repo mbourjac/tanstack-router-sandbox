@@ -33,10 +33,13 @@ export const AppLayout = () => {
                 onClick={handleToggleMenu}
                 className="px-4 py-3 lg:hidden"
               >
-                <Icon kind="menu" className="size-8" aria-hidden />
-                <span className="sr-only">{`${
-                  isNavDisplayed ? 'Close' : 'Open'
-                } menu`}</span>
+                <Icon
+                  kind="menu"
+                  className="size-8"
+                  screenReaderLabel={`${
+                    isNavDisplayed ? 'Close' : 'Open'
+                  } menu`}
+                />
               </button>
             </div>
             <Nav isDisplayed={isNavDisplayed} isMobile={isMediumDevice} />

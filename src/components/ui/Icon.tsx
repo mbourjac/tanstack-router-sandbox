@@ -1,15 +1,29 @@
 import type { SVGAttributes } from 'react';
 import { cn } from '../../lib/tailwind.utils';
 
-export type IconProps = Omit<
+export type IconProps = (Omit<
   SVGAttributes<SVGSVGElement>,
-  'xmlns' | 'viewBox' | 'className' | 'fill'
+  | 'xmlns'
+  | 'viewBox'
+  | 'className'
+  | 'fill'
+  | 'strokeWidth'
+  | 'stroke'
+  | 'aria-hidden'
 > & {
   kind: keyof typeof iconsMapping;
-  viewBox?: string;
-  fill?: string;
   className?: string;
-};
+}) &
+  (
+    | {
+        'aria-hidden'?: SVGAttributes<SVGSVGElement>['aria-hidden'];
+        screenReaderLabel?: never;
+      }
+    | {
+        'aria-hidden'?: never;
+        screenReaderLabel?: string;
+      }
+  );
 
 const iconsMapping = {
   menu: (
@@ -53,16 +67,29 @@ const iconsMapping = {
   ),
 };
 
-export const Icon = ({ kind, className, ...attributes }: IconProps) => {
+export const Icon = ({
+  kind,
+  className,
+  screenReaderLabel,
+  ...attributes
+}: IconProps) => {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      className={cn('size-5', className)}
-      {...attributes}
-    >
-      {iconsMapping[kind]}
-    </svg>
+    <>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        className={cn('size-5', className)}
+        aria-hidden={
+          screenReaderLabel ? !!screenReaderLabel : attributes['aria-hidden']
+        }
+        {...attributes}
+      >
+        {iconsMapping[kind]}
+      </svg>
+      {screenReaderLabel && (
+        <span className="sr-only">{screenReaderLabel}</span>
+      )}
+    </>
   );
 };
