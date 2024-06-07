@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { Link } from '@tanstack/react-router';
 import { Icon } from '../../../components/ui/Icon';
-import { useDashboardHeight } from '../../../hooks/use-dashboard-height';
+import { useContentHeight } from '../../../hooks/use-content-height';
 
 type DashboardModalProps = {
   heading: string;
@@ -9,7 +9,7 @@ type DashboardModalProps = {
 };
 
 export const DashboardModal = ({ heading, children }: DashboardModalProps) => {
-  const height = useDashboardHeight({ withPadding: true });
+  const height = useContentHeight('fixedDashboard');
 
   return (
     <div className="border-main relative mt-4 flex flex-col" style={{ height }}>

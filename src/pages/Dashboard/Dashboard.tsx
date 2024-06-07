@@ -1,10 +1,10 @@
-import { useDashboardHeight } from '../../hooks/use-dashboard-height';
+import { useContentHeight } from '../../hooks/use-content-height';
 import { useEnsuredPosts } from '../../services/post/post.utils';
 import { PostCard } from './PostCard';
 
 export const Dashboard = () => {
   const posts = useEnsuredPosts();
-  const height = useDashboardHeight();
+  const height = useContentHeight('scrollDashboard');
 
   return (
     <div className="w-full @container">
