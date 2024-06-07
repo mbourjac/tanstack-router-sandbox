@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { getRouteApi, useRouterState } from '@tanstack/react-router';
 import { Input } from '../components/forms/Input';
+import { Password } from '../components/forms/Password';
 import { Button } from '../components/ui/Button';
 import { useZodForm } from '../hooks/use-zod-form';
 import { loginUserSchema } from '../services/auth/auth.schemas';
@@ -45,12 +46,7 @@ export const Login = () => {
           className="flex w-full flex-col items-center gap-8"
         >
           <Input id="email" label="Email*" {...inputProps} />
-          <Input
-            type="password"
-            id="password"
-            label="Password"
-            {...inputProps}
-          />
+          <Password id="password" label="Password" {...inputProps} />
           <Button isDisabled={isSubmitting || isLoading}>Submit</Button>
         </form>
       </div>
