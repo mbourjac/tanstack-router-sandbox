@@ -1,9 +1,9 @@
 import { useContentHeight } from '../../hooks/use-content-height';
-import { useEnsuredPosts } from '../../services/post/post.utils';
+import { useCachedPosts } from '../../services/post/post.utils';
 import { PostCard } from './PostCard';
 
 export const Dashboard = () => {
-  const posts = useEnsuredPosts();
+  const posts = useCachedPosts();
   const height = useContentHeight('scrollDashboard');
 
   return (
