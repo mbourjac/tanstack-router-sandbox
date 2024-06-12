@@ -20,8 +20,8 @@ export const Nav = ({ isDisplayed, isMobile }: NavProps) => {
     select: (state) => state.isLoading,
   });
 
-  const { isLoggedIn } = useAuthStore((state) => state.auth);
-  const logout = useAuthStore((state) => state.logout);
+  const { isLoggedIn } = useAuthStore.use.auth();
+  const logout = useAuthStore.use.logout();
 
   const isLogin = !!useMatches().find(({ pathname }) => pathname === '/login');
   const isLoggedInNav = isLoggedIn && !isLogin;

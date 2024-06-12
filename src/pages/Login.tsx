@@ -17,8 +17,8 @@ export const Login = () => {
     select: (state) => state.isLoading,
   });
 
-  const { isLoggedIn } = useAuthStore((state) => state.auth);
-  const login = useAuthStore((state) => state.login);
+  const { isLoggedIn } = useAuthStore.use.auth();
+  const login = useAuthStore.use.login();
 
   const {
     handleSubmit,

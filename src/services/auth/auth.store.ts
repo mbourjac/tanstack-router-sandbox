@@ -3,6 +3,7 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { getErrorMessage } from '../../helpers/errors';
 import { baseAPI } from '../../lib/axios.instance';
+import { createSelectors } from '../../lib/zustand.utils';
 import { loginRequest } from './auth.api';
 import { authDataSchema } from './auth.schemas';
 import type { Auth, LoginUser } from './auth.types';
@@ -13,7 +14,7 @@ type AuthStore = {
   logout: () => void;
 };
 
-export const useAuthStore = create<AuthStore>()(
+export const useAuthStoreBase = create<AuthStore>()(
   persist(
     (set) => {
       const loggedOutState = {
@@ -48,3 +49,6 @@ export const useAuthStore = create<AuthStore>()(
     },
   ),
 );
+
+// generate selectors for zustand store: https://docs.pmnd.rs/zustand/guides/auto-generating-selectors
+export const useAuthStore = createSelectors(useAuthStoreBase);
