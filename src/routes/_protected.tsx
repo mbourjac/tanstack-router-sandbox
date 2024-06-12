@@ -1,15 +1,15 @@
 import { queryOptions } from '@tanstack/react-query';
 import { createFileRoute, redirect } from '@tanstack/react-router';
-import { ProtectedError } from '../layouts/ProtectedLayout/ProtectedError';
 import { ProtectedLayout } from '../layouts/ProtectedLayout/ProtectedLayout';
+import { ProtectedLayoutError } from '../layouts/ProtectedLayout/ProtectedLayoutError';
 import { ProtectedLayoutSkeleton } from '../layouts/ProtectedLayout/ProtectedLayoutSkeleton';
 import type { AllRoutes } from '../router/router.types';
 
 export const Route = createFileRoute('/_protected')({
   component: ProtectedLayout,
   pendingComponent: ProtectedLayoutSkeleton,
-  errorComponent: ProtectedError,
-  beforeLoad: ({ context: { auth, postService }, location }) => {
+  errorComponent: ProtectedLayoutError,
+  beforeLoad: ({ context: { baseAPI, auth, postService }, location }) => {
     if (!auth) {
       throw redirect({
         to: '/login',
@@ -19,7 +19,9 @@ export const Route = createFileRoute('/_protected')({
       });
     }
 
-    const { user } = auth;
+    const { user, token } = auth;
+
+    baseAPI.defaults.headers.Authorization = `Bearer ${token}`;
 
     return {
       auth,

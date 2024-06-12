@@ -2,10 +2,12 @@ import { useEffect, useRef } from 'react';
 import {
   useMatches,
   useNavigate,
+  useRouter,
   useRouterState,
 } from '@tanstack/react-router';
 import { Bulleted } from '../../../components/ui/Bulleted';
 import { useMobileNavHeight } from '../../../hooks/use-mobile-nav-height';
+import { useAuthService } from '../../../services/auth/auth.service';
 import { useAuthStore } from '../../../services/auth/auth.store';
 import { NavLink } from './NavLink';
 
@@ -15,13 +17,14 @@ type NavProps = {
 };
 
 export const Nav = ({ isDisplayed, isMobile }: NavProps) => {
+  const router = useRouter();
   const navigate = useNavigate();
   const isLoading = useRouterState({
     select: (state) => state.isLoading,
   });
 
   const auth = useAuthStore.use.auth();
-  const logout = useAuthStore.use.logout();
+  const { logout } = useAuthService();
 
   const isLogin = !!useMatches().find(({ pathname }) => pathname === '/login');
   // prevent displaying protected nav once logged in but while still loading dashboard
@@ -29,6 +32,7 @@ export const Nav = ({ isDisplayed, isMobile }: NavProps) => {
 
   const handleLogout = async () => {
     logout();
+    await router.invalidate();
     await navigate({ to: '/login' });
   };
 

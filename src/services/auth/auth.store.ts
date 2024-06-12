@@ -1,37 +1,19 @@
-import toast from 'react-hot-toast';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { getErrorMessage } from '../../helpers/errors';
-import { baseAPI } from '../../lib/axios.instance';
 import { createSelectors } from '../../lib/zustand.utils';
-import { loginRequest } from './auth.api';
-import { authSchema } from './auth.schemas';
-import type { Auth, LoginUser } from './auth.types';
+import type { Auth } from './auth.types';
 
 type AuthStore = {
   auth: Auth | null;
-  login: (loginData: LoginUser) => Promise<void>;
-  logout: () => void;
+  setAuth: (auth: Auth | null) => void;
 };
 
-export const useAuthStoreBase = create<AuthStore>()(
+const useAuthStoreBase = create<AuthStore>()(
+  // persist state in local storage: https://docs.pmnd.rs/zustand/integrations/persisting-store-data
   persist(
     (set) => ({
       auth: null,
-      login: async (loginData) => {
-        try {
-          const auth = await loginRequest(loginData);
-          const parsedAuth = authSchema.parse(auth);
-
-          set({ auth: parsedAuth });
-        } catch (error) {
-          toast.error(getErrorMessage(error));
-        }
-      },
-      logout: () => {
-        set({ auth: null });
-        delete baseAPI.defaults.headers.Authorization;
-      },
+      setAuth: (auth) => set({ auth }),
     }),
     {
       name: import.meta.env.VITE_AUTH_STORAGE_KEY ?? 'auth-storage',
