@@ -1,13 +1,16 @@
-import { randomSleep } from '../../helpers/mocks';
+import { baseAPI } from '../../lib/axios.instance';
+import type { User } from '../user/user.types';
 import type { LoginUser } from './auth.types';
 
-export const loginRequest = async ({ password }: LoginUser) => {
-  await randomSleep();
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const loginRequest = async (_loginUserData: LoginUser) => {
+  const { data: user } = await baseAPI.get<User>(
+    `/users/${Math.floor(Math.random() * 10) + 1}`,
+  );
+  const token = '';
 
   return {
-    userId: Math.floor(Math.random() * 10) + 1,
-    token:
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6Ikpva',
-    role: password ? ('admin' as const) : ('user' as const),
+    user,
+    token,
   };
 };

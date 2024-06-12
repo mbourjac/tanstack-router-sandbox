@@ -17,7 +17,7 @@ export const Login = () => {
     select: (state) => state.isLoading,
   });
 
-  const { isLoggedIn } = useAuthStore.use.auth();
+  const auth = useAuthStore.use.auth();
   const login = useAuthStore.use.login();
 
   const {
@@ -31,12 +31,12 @@ export const Login = () => {
   };
 
   useEffect(() => {
-    if (!isLoggedIn) return;
+    if (!auth) return;
 
     void navigate({
       to: redirect ?? '/dashboard',
     });
-  }, [isLoggedIn, navigate, redirect]);
+  }, [auth, navigate, redirect]);
 
   return (
     <div className="flex w-full grow items-center justify-center">

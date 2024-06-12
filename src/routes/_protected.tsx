@@ -9,15 +9,8 @@ export const Route = createFileRoute('/_protected')({
   component: ProtectedLayout,
   pendingComponent: ProtectedLayoutSkeleton,
   errorComponent: ProtectedError,
-  beforeLoad: ({
-    context: {
-      auth: { userId },
-      userService,
-      postService,
-    },
-    location,
-  }) => {
-    if (!userId) {
+  beforeLoad: ({ context: { auth, postService }, location }) => {
+    if (!auth) {
       throw redirect({
         to: '/login',
         search: {
@@ -26,21 +19,17 @@ export const Route = createFileRoute('/_protected')({
       });
     }
 
+    const { user } = auth;
+
     return {
-      getUserByIdQueryOptions: queryOptions({
-        queryKey: ['user', { userId }],
-        queryFn: () => userService().getUserById(userId),
-      }),
+      auth,
       getAllPostsQueryOptions: queryOptions({
-        queryKey: ['posts', 'user', { userId }],
-        queryFn: () => postService().getAllPosts(userId),
+        queryKey: ['posts', 'user', { userId: user.id }],
+        queryFn: () => postService().getAllPosts(user.id),
       }),
     };
   },
-  loader: async ({
-    context: { queryClient, getUserByIdQueryOptions, getAllPostsQueryOptions },
-  }) => {
-    await queryClient.ensureQueryData(getUserByIdQueryOptions);
+  loader: async ({ context: { queryClient, getAllPostsQueryOptions } }) => {
     await queryClient.ensureQueryData(getAllPostsQueryOptions);
   },
 });

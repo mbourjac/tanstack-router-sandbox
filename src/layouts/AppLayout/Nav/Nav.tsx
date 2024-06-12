@@ -20,11 +20,12 @@ export const Nav = ({ isDisplayed, isMobile }: NavProps) => {
     select: (state) => state.isLoading,
   });
 
-  const { isLoggedIn } = useAuthStore.use.auth();
+  const auth = useAuthStore.use.auth();
   const logout = useAuthStore.use.logout();
 
   const isLogin = !!useMatches().find(({ pathname }) => pathname === '/login');
-  const isLoggedInNav = isLoggedIn && !isLogin;
+  // prevent displaying protected nav once logged in but while still loading dashboard
+  const isProtectedNav = auth && !isLogin;
 
   const handleLogout = async () => {
     logout();
@@ -56,14 +57,14 @@ export const Nav = ({ isDisplayed, isMobile }: NavProps) => {
         aria-label="Main menu"
         ref={navRef}
       >
-        {isLoggedInNav && (
+        {isProtectedNav && (
           <>
             <NavLink to="/dashboard">Dashboard</NavLink>
             <NavLink to="/profile">Profile</NavLink>
           </>
         )}
         <NavLink to="/about">About</NavLink>
-        {isLoggedInNav ?
+        {isProtectedNav ?
           <button onClick={() => void handleLogout()}>
             <Bulleted>Logout</Bulleted>
           </button>
