@@ -1,4 +1,5 @@
 import { createRouter } from '@tanstack/react-router';
+import { NotFound } from '../pages/NotFound';
 import { routerContext } from './router.context';
 import { routeMasks } from './router.masks';
 import { routeTree } from './routeTree.gen';
@@ -9,6 +10,8 @@ export const router = createRouter({
   defaultPreloadStaleTime: 0,
   context: routerContext,
   routeMasks,
+  defaultNotFoundComponent: NotFound,
+  notFoundMode: 'root',
 });
 
 declare module '@tanstack/react-router' {
